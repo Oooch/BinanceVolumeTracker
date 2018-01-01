@@ -51,6 +51,7 @@ namespace Binance_API_2
             if (CoinData.Rows.Count == 0)
             {
                 BinanceApi api = new BinanceApi();
+                
                coinprices = await api.GetPricesAsync(CancellationToken.None); // Grab all coin symbols
                 _pricesArray = coinprices.ToArray().Where(o =>
                     o.Symbol == "BTCUSDT" || o.Symbol == "ETHBTC" || o.Symbol.EndsWith("ETH"));
@@ -165,6 +166,14 @@ namespace Binance_API_2
             }
             else
             {
+                if (Convert.ToDecimal(viewRow.Cells[3].Value) > Convert.ToDecimal(viewRow.Cells[4].Value))
+                {
+                    coindatagridview.Rows[viewRow.Index].Visible = true;
+                }
+                else
+                {
+                    coindatagridview.Rows[viewRow.Index].Visible = false;
+                }
                 if (i == 5)
                 {
                     if (Convert.ToDecimal(viewRow.Cells[i].Value) >= 4)

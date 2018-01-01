@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-
 namespace Binance_API_2
 {
     static class Program
@@ -21,6 +20,7 @@ namespace Binance_API_2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);            
             Application.Run(new VolumeInfo());
+            
         }       
     }
 }
