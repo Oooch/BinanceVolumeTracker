@@ -132,11 +132,16 @@ namespace Binance_API_2
 
         private void DataViewColours()
         {
-            foreach (DataGridViewRow viewRow in coindatagridview.Rows)
+            if (coindatagridview.DataSource != null)
             {
-                CellCheck(viewRow, 3);
-                CellCheck(viewRow, 4);
-                CellCheck(viewRow, 5);
+                
+                foreach (DataGridViewRow viewRow in coindatagridview.Rows)
+                {
+                    CellCheck(viewRow, 3);
+                    CellCheck(viewRow, 4);
+                    CellCheck(viewRow, 5);
+                }
+                
             }
             //int i = coindatagridview.Rows.Count - 1;
             //while (i >= 0)
@@ -152,7 +157,6 @@ namespace Binance_API_2
             //    CellCheck(viewRow, 4);
             //    CellCheck(viewRow, 5);
             //}
-
         }
 
         
@@ -172,7 +176,10 @@ namespace Binance_API_2
                 }
                 else
                 {
+                    CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[coindatagridview.DataSource];
+                    currencyManager1.SuspendBinding();
                     coindatagridview.Rows[viewRow.Index].Visible = false;
+                    currencyManager1.ResumeBinding();
                 }
                 if (i == 5)
                 {
