@@ -88,11 +88,15 @@ namespace Binance_API_2
                     row[4] = PercentGive(fifteenminavg, averagevolumeeighthours);
                     int greencandles = 0;
                     int i = 0;
-                    while (i != 9)
+                    while (i != 20)
                     {
                         if (candlearray.ElementAt(i).Close > candlearray.ElementAt(i + 1).Close)
                         {
                             greencandles++;
+                        }
+                        else
+                        {
+                            break;
                         }
                         i++;
                     }
@@ -137,8 +141,8 @@ namespace Binance_API_2
                 
                 foreach (DataGridViewRow viewRow in coindatagridview.Rows)
                 {
-                    CellCheck(viewRow, 3);
-                    CellCheck(viewRow, 4);
+                    //CellCheck(viewRow, 3);
+                    //CellCheck(viewRow, 4);
                     CellCheck(viewRow, 5);
                 }
                 
@@ -170,11 +174,14 @@ namespace Binance_API_2
             }
             else
             {
-                if (Convert.ToDecimal(viewRow.Cells[3].Value) > Convert.ToDecimal(viewRow.Cells[4].Value))
+                if (Convert.ToDecimal(viewRow.Cells[3].Value) > Convert.ToDecimal(viewRow.Cells[4].Value) || Convert.ToDecimal(viewRow.Cells[2].Value) > 1000)
                 {
+                    CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[coindatagridview.DataSource];
+                    currencyManager1.SuspendBinding();
                     coindatagridview.Rows[viewRow.Index].Visible = true;
+                    currencyManager1.ResumeBinding();
                 }
-                else
+               if(Convert.ToDecimal(viewRow.Cells[2].Value) < 1000 || Convert.ToDecimal(viewRow.Cells[3].Value) < Convert.ToDecimal(viewRow.Cells[4].Value))
                 {
                     CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[coindatagridview.DataSource];
                     currencyManager1.SuspendBinding();
